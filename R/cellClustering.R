@@ -69,6 +69,7 @@ cluster.SC3 <- function(counts, K) {
     return(colTb)
 }
 
+
 ### Monocle
 cluster.monocle <- function(counts, K) {
     require(monocle)
