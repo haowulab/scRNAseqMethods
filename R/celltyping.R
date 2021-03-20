@@ -10,20 +10,31 @@
 #' depending on the method. 
 #' @export
 
-celltyping <- function(X, method=c("MAST", "SC2P"), ...) {
+celltyping <- function(Xtrain, labelsTraing, Xtest, 
+                       method=c("SingleR", "scmapCluster", "scmapCell",
+                                "CHETAH", "Garnett"), ...) {
   method = match.arg(method)
   switch(method,
-         DrImpute = celltyping.DrImpute(X, ...),
-         SAVER = celltyping.SAVER(X, ...)
+         singleR = celltyping.SingleR(Xtrain, labelsTraing, Xtest, ...),
+         singleR = celltyping.scmapCluster(Xtrain, labelsTraing, Xtest, ...),
   )
 }
 
-celltyping.DrImpute <- function(x, ...) {
+## singleR
+celltyping.SingleR <- function(Xtrain, labelsTraing, Xtest, ...) {
+  require(SingleR)
+  pred.hesc <- SingleR(test = Xtest, ref = Xtrain, 
+                       labels = labelsTraing)
+  return(pred.hesc$labels)
+}
+
+celltyping.scmapCluster <- function(Xtrain, labelsTraing, Xtest, ...) {
+  require(scmap)
   
 }
 
-celltyping.SAVER <- function(X, ...) {
-  
+celltyping.CHETAH <- function(Xtrain, labelsTraing, Xtest, ...) {
+  require(CHETAH)
 }
 
 

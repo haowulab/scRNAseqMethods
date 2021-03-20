@@ -16,7 +16,8 @@
 #' @export
 
 cellClustering <- function(x,
-                           method = c("SC3", "Seurat", "monocle", "cidr", "TSCAN", "SHARP"),
+                           method = c("SC3", "Seurat", "monocle", "cidr", 
+                                      "TSCAN", "SHARP"),
                            K ) {
     method = match.arg(method)
     switch(method,

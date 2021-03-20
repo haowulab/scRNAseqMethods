@@ -74,7 +74,7 @@ and return a matrix of the same dimension with missing data imputed.
 Ximpute = imputation(Seg_counts, method="DrImpute")
 ```
 
-## Cell clustering 
+## Unsupervised cell clustering 
 The `cellClustering` function takes a raw count matrix, a method, and 
 number of desired clusters, then return a vector for clustering results.
 ```{r, eval=FALSE}
@@ -82,7 +82,24 @@ res = cellClustering(Seg_counts, method="SHARP", K=6)
 table(res, Seg_true_cell_label)
 ```
 
-## Cell typing
+## Supervised cell typing
+The `celltyping` function takes a matrix of raw counts for the test data,
+a matrix of raw counts for the training data, and a vector for the cell types 
+for the training data. It will construct a prediction model and apply that 
+to the test data, and report the predicted cell types in the test data. 
+
+Here we will use the pancreas data to demonstrate the functionality. 
+We use the first two individuals as training data to predict the cell types
+for the third individual. 
+
+```{r, eval=FALSE}
+ix = Seg_subject_ID == 1 | Seg_subject_ID == 2
+Xtrain = Seg_counts[,ix]
+celltype_train = Seg_true_cell_label[ix]
+Xtest = Seg_counts[,Seg_subject_ID == 3]
+res = celltyping(Xtrain, celltype_train, Xtest, method="")
+table(Seg_true_cell_label[!ix], res$labels)
+```
 
 ## Differential expression
 The `DE` function takes a raw count matrix and a vector of experiment design,
@@ -92,7 +109,7 @@ We can certainly do others, but the syntax
 will be complicated. I will keep it simple for now. 
 
 **NOTE**: the DE test involves too many paramters and settings, 
-so it's really difficult to have it in a simple wrapper. 
+so it is really difficult to have it in a simple wrapper. 
 Please ignore this function for now. 
 
 ```{r, eval=FALSE}

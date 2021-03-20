@@ -45,5 +45,9 @@ installPkg <- function() {
   install_github("haowulab/SC2P", build_vignettes=TRUE) 
   # POWSC requires SC2P to be installed first
   install_github("suke18/POWSC", build_vignettes = T, dependencies = T)
+ 
+  BiocManager::install("scmap")
+  BiocManager::install("CHETAH")
+  BiocManager::install("SingleR")
   
 }
