@@ -84,6 +84,25 @@ table(res, Seg_true_cell_label)
 
 ## Cell typing
 
+## Differential expression
+The `DE` function takes a raw count matrix and a vector of experiment design,
+perform differential expression and return p-values. 
+This only implements the simple  two-group comparison case. 
+We can certainly do others, but the syntax
+will be complicated. I will keep it simple for now. 
+
+**NOTE**: the DE test involves too many paramters and settings, 
+so it's really difficult to have it in a simple wrapper. 
+Please ignore this function for now. 
+
+```{r, eval=FALSE}
+## take out the data for subject 1, alpha and gamma cells
+ix = Seg_subject_ID == 1 & (Seg_true_cell_label[ix]=="alpha" | 
+                              Seg_true_cell_label[ix]=="gamma")
+X = Seg_counts[,ix]
+design = Seg_true_cell_label[ix]
+pvals = DE(X, design, method="MAST")
+```
 
 ## Data simulator
 The `simulator` function take a template data (raw counts for **one** cell type),
