@@ -8,3 +8,4 @@ Maintainer: Hao Wu <hao.wu@emory.edu>
 Description: A list of wrapper functions for basic scRNA-seq data analysis, including normalization, batch effect correction, imputation, differential expression, cell clustering, cell typing. 
 License: GPL
 Suggests: scater, scran, DESeq, SCnorm, batchelor, SAVER, DrImpute, MAST, splatter, scDesign, SC2P, POWSC, SC3, Seurat, monocle, cidr, TSCAN, SHARP, harmony
+RoxygenNote: 7.1.1

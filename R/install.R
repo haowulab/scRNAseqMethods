@@ -13,7 +13,7 @@
 #' For simulator: POWSC, splatter, scDesign
 #' @export
 
-install <- function() {
+installPkg <- function() {
   require(devtools)
   Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS=TRUE)
 

@@ -17,7 +17,8 @@
 #' Number of genes is the same as the input.
 #' @export
 
-simulator <- function(X, ncells, totalCounts, method=c("scDesign", "splat", "POWSC", ...) {
+simulator <- function(X, ncells, totalCounts, 
+                      method=c("scDesign", "splat", "POWSC"), ...) {
   method = match.arg(method)
   switch(method,
          scDesign = simulator.scDesign(X, ncells, totalCounts, ...),
@@ -27,18 +28,21 @@ simulator <- function(X, ncells, totalCounts, method=c("scDesign", "splat", "POW
 }
 
 simulator.POWSC <- function(X, ncell, ...) {
+  require(POWSC)
   est_paras = Est2Phase(sce = X)
   POWSC_sim = Simulate2SCE(n = ncell, estParas1 = est_paras, estParas2 = est_paras)
   return(assays(POWSC_sim$sce)$counts)
 }
 
 simulator.scDesign <- function(X, ncells, ...) {
+  require(scDesign)
   scDesign_sim = design_data(realcount = X, S = 1e7, 
                              ncell = ncells, ngroup = 1) 
   return(scDesign_sim) 
 }
 
 simulator.splat <- function(X, ncells, ...) {
+  require(splatter)
   splat_paras = splatEstimate(X)
   splat_paras@nCells = ncells
   splat_paras@batchCells = ncells
